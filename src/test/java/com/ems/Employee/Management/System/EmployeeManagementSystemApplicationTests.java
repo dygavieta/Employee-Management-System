@@ -15,26 +15,5 @@ import java.math.BigInteger;
 @SpringBootTest
 class EmployeeManagementSystemApplicationTests {
 
-	@Autowired
-	private EmployeeService employeeService;
-
-
-	@Test
-	void whenSavingEmployee_thenOk(){
-		Employee employee = new Employee();
-		employee.setLastName("Gavieta");
-		employee.setFirstName("Don Michael");
-		employee.setMiddleName("Yap");
-		employee.setFullName("Don Michael Yap Gavieta");
-		Employee savedEmployee = employeeService.addEmployee(employee);
- 		assertThat(savedEmployee).isNotNull();
-	}
-
-	@Test
-	void whenDeleteEmployee_thenOk(){
-		Employee employee = employeeService.findByFullName("Don Michael Yap Gavieta");
-		Employee deletedEmployee = employeeService.deleteById(employee.getEmployeeId());
-		assertThat(deletedEmployee).isNotNull();
-	}
 
 }

@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigInteger;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Setter
@@ -23,8 +21,7 @@ public class EmergencyContact {
     private String relationship;
     private String contactNumber;
 
-    @JsonIgnore
-    @ManyToMany(
-            mappedBy = "emergencyContacts")
-    private Set<Employee> employees = new HashSet<>();
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "emergencyContacts", fetch = FetchType.LAZY)
+//    private Set<Employee> employees = new HashSet<>();
 }
