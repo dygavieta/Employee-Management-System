@@ -2,6 +2,7 @@ package com.ems.Employee.Management.System.service.employee.impl;
 
 import com.ems.Employee.Management.System.entity.EmergencyContact;
 import com.ems.Employee.Management.System.entity.Employee;
+import com.ems.Employee.Management.System.entity.Role;
 import com.ems.Employee.Management.System.repository.EmergencyContactRepository;
 import com.ems.Employee.Management.System.repository.EmployeeRepository;
 import com.ems.Employee.Management.System.service.employee.EmployeeService;
@@ -57,5 +58,16 @@ public class EmployeeDBService implements EmployeeService {
             return employeeRepository.save(employee);
         }
        return null;
+    }
+
+    @Override
+    public Employee deleteById(BigInteger employeeId) {
+        Employee employee = findById(employeeId);
+
+        if (employee!= null){
+            employeeRepository.deleteById(employeeId);
+            return employee;
+        }
+        return null;
     }
 }

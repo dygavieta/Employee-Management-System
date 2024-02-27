@@ -61,4 +61,9 @@ public class EmployeeNonDBService implements EmployeeService {
     public Employee addEmergencyContact(BigInteger employeeId, EmergencyContact emergencyContact) {
         return null;
     }
+
+    @Override
+    public Employee deleteById(BigInteger employeeId) {
+        return null;
+    }
 }

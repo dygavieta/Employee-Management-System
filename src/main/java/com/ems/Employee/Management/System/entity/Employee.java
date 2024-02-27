@@ -1,5 +1,6 @@
 package com.ems.Employee.Management.System.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -36,11 +37,19 @@ public class Employee {
     private String createdDate;
     private String modifiedDate;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "tbl_employee_emergency_contact",
             joinColumns = @JoinColumn(name = "employeeId", referencedColumnName = "employeeId"),
             inverseJoinColumns = @JoinColumn(name = "emergencyContactId", referencedColumnName = "emergencyContactId")
     )
     private Set<EmergencyContact> emergencyContacts = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tbl_employee_role",
+            joinColumns = @JoinColumn(name = "employeeId", referencedColumnName = "employeeId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId", referencedColumnName = "roleId")
+    )
+    private Set<Role> roles = new HashSet<>();
 }
