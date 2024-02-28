@@ -17,7 +17,7 @@ public class EmployeeTest {
 
     @Value("${lastName}")
     private String lastName;
-    @Value("$firstName}")
+    @Value("${firstName}")
     private String firstName;
     @Value("${middleName}")
     private String middleName;
