@@ -2,16 +2,16 @@ package com.ems.Employee.Management.System.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-@Getter
-@Setter
 @Data
 @Entity
 @Table(name = "tbl_employee")
@@ -20,6 +20,8 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private BigInteger employeeId;
+
+    @NotBlank(message = "firstName can't be null")
     private String firstName;
     private String middleName;
     private String lastName;
@@ -36,6 +38,7 @@ public class Employee {
     private String country;
     private String createdDate;
     private String modifiedDate;
+    private LocalDate jobStarted;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(

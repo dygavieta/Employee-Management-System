@@ -1,13 +1,18 @@
 package com.ems.Employee.Management.System.service.employee.impl;
 
+import com.ems.Employee.Management.System.dto.EmployeeDTO;
+import com.ems.Employee.Management.System.dto.EmployeeDTOConverter;
+import com.ems.Employee.Management.System.dto.EmployeeResponse;
 import com.ems.Employee.Management.System.entity.EmergencyContact;
 import com.ems.Employee.Management.System.entity.Employee;
 import com.ems.Employee.Management.System.service.employee.EmployeeService;
 import lombok.Setter;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +29,13 @@ public class EmployeeNonDBService implements EmployeeService {
         this.index = BigInteger.ONE;
     }
     @Override
-    public Employee findById(BigInteger employeeId) {
+    public EmployeeDTO findById(BigInteger employeeId) {
 
-        return employeeList.stream().filter(employee -> employee.getEmployeeId().equals(employeeId)).findFirst().orElse(null);
+        Employee existingEmployee = employeeList.stream().filter(employee -> employee.getEmployeeId().equals(employeeId)).findFirst().orElse(null);
+        if (existingEmployee !=null){
+           return EmployeeDTOConverter.convertToDTO(existingEmployee);
+        }
+        return null;
     }
 
     @Override
@@ -40,12 +49,13 @@ public class EmployeeNonDBService implements EmployeeService {
     }
 
     @Override
-    public Employee addEmployee(Employee employee) {
+    public EmployeeResponse addEmployee(EmployeeResponse employee) {
         boolean existing = employeeList.stream().anyMatch(existingEmployee -> existingEmployee.getFullName().equals(employee.getFullName()));
 
         if (!existing){
-            employee.setEmployeeId(index);
-            employeeList.add(employee);
+            Employee employee1 = EmployeeDTOConverter.convertToEmployee(employee);
+            employee1.setEmployeeId(index);
+            employeeList.add(employee1);
             this.setIndex(index.add(BigInteger.ONE));
             return employee;
         } {
@@ -64,6 +74,16 @@ public class EmployeeNonDBService implements EmployeeService {
 
     @Override
     public Employee deleteById(BigInteger employeeId) {
+        return null;
+    }
+
+    @Override
+    public List<Employee> findByCreatedDateBetween(LocalDate start, LocalDate end) {
+        return null;
+    }
+
+    @Override
+    public Page<Employee> findByPage(int items, int page, boolean sorted) {
         return null;
     }
 }

@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, BigInteger> {
 
+    List<Employee> findByJobStartedBetween(LocalDate date1, LocalDate date2);
     Optional<Employee> findById(BigInteger employeeId);
     Optional<Employee> findByFullName(String fullName);
 
